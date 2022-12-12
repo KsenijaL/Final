@@ -33,4 +33,8 @@ public class HomePageSteps {
         homePage.selectSpecificProduct(productName);
     }
 
+    @And("Close Window")
+    public void closeWindow() {
+        homePage.closeWindow();
+    }
 }

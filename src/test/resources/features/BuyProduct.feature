@@ -19,3 +19,4 @@ Feature: Test that user is able to buy product
     Then Validate that user name in payment page match with expected
     And Validate that user phone in payment page match with expected
     And Validate that product price in payment page match with expected
+    And Close Window

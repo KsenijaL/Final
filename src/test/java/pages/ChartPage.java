@@ -14,44 +14,67 @@ import models.UserDetails;
 public class ChartPage {
     UserDetails userDetails = new UserDetails();
 
+    private final By productNameField = By.xpath("//a[@class='detailed-cart-item__name-link']");
+    private final By productPriceField = By.xpath("//div[@class='detailed-cart-item__column detailed-cart-item__column--price']/p");
+    private final By continueBuyingbtn = By.xpath("//input[@name='commit'][@type='submit']");
+    private final By emailAdress = By.xpath("//input[@class='users-session-form__input users-session-form__input--text']");
+    private final By buyAsNotRegisteredbtn = By.xpath("//input[@class='users-session-form__submit']");
+    private final By deliveryTypeHome = By.xpath("//input[@name='shipping_unused'][@value='1']");
+    private final By deliveryTypeOffice = By.xpath("//input[@name='shipping_unused'][@value='2']");
+    private final By deliveryTypeParcel = By.xpath("//input[@name='shipping_unused'][@value='3']");
+    private final By firstOffice = By.xpath("//div[@class='pickup-point-name']");
+    private final By listOfOffices = By.xpath("//div[@class='pickup-point-name']");
+    private final By userNameField = By.xpath("//input[@name='address[first_name]']");
+    private final By userSurnameField = By.xpath("//input[@name='address[last_name]']");
+    private final By userPhoneField = By.xpath("//input[@name='address[phone_number]']");
+    private final By saveUserDetailsbtn = By.xpath("//button[@class='main-button upcase button-min-width']");
+    private final By subminDetailsbtn = By.xpath("//button[@class='main-button upcase fr small-radius button-min-width checkout-shipping-continue-button']");
+    private final By selectIbank = By.xpath("//ul[@class='menu menu--checkout']/li[1]");
+    private final By selectCash = By.xpath("//ul[@class='menu menu--checkout']/li[2]");
+    private final By selectTransfer = By.xpath("//ul[@class='menu menu--checkout']/li[3]");
+    private final By selectCard = By.xpath("//ul[@class='menu menu--checkout']/li[4]");
+    private final By buyerName = By.xpath("//div[@class='chosen-address']/div[1]");
+    private final By buyerPhone = By.xpath("//div[@class='chosen-address']/div[2]");
+    private final By price = By.xpath("//div[@class='price fr']");
+
     public void validateProductName() {
 
-        String actualName = $(By.xpath("//a[@class='detailed-cart-item__name-link']")).getText();
+        String actualName = $(productNameField).getText();
         assertThat(actualName).isEqualTo(product.getProductName());
     }
 
     public void validateProductPrice() {
-        String actualPrice = $(By.xpath("//div[@class='detailed-cart-item__column detailed-cart-item__column--price']/p")).getText();
+        String actualPrice = $(productPriceField).getText();
         assertThat(actualPrice).isEqualTo(product.getProductPrice());
     }
 
     public void continueBuying() {
-        $$(By.xpath("//input[@name='commit'][@type='submit']")).first().click();
+        $$(continueBuyingbtn).first().click();
     }
 
+
     public void buyAsNotRegisteredUser() {
-        $$(By.xpath("//input[@class='users-session-form__input users-session-form__input--text']")).last().sendKeys(userDetails.getEmail());
-        $$(By.xpath("//input[@class='users-session-form__submit']")).last().click();
+        $$(emailAdress).last().sendKeys(userDetails.getEmail());
+        $$(buyAsNotRegisteredbtn).last().click();
     }
 
     public void selectDelivery(String deliveryType) {
 
-
         if (deliveryType.contains("home")) {
-            $(By.xpath("//input[@name='shipping_unused'][@value='1']")).click();
+            $(deliveryTypeHome).click();
         } else if (deliveryType.contains("office")) {
-            $(By.xpath("//input[@name='shipping_unused'][@value='2']")).click();
+            $(deliveryTypeOffice).click();
         } else if (deliveryType.contains("parcel")) {
-            $(By.xpath("//input[@name='shipping_unused'][@value='3']")).click();
+            $(deliveryTypeParcel).click();
         } else {
             System.out.println("Wrong value selected. PLease select one of:Delivery at home / Pick up from office / Pick up from parcel machine");
         }
     }
 
     public void selectOffice(String cityName, String streetName) {
-        $$(byXpath("//div[@class='pickup-point-name']")).first().click();
+        $$(firstOffice).first().click();
 
-        final ElementsCollection list = $$(byXpath("//div[@class='pickup-point-name']"));
+        final ElementsCollection list = $$(listOfOffices);
         final int count = list.size();
         for (int i = 0; i < count; i++) {
             String a = list.get(i).getText();
@@ -62,49 +85,51 @@ public class ChartPage {
     }
 
     public void fillInUserName() {
-        $(By.xpath("//input[@name='address[first_name]']")).sendKeys(userDetails.getUserName());
+        $(userNameField).sendKeys(userDetails.getUserName());
     }
 
     public void fillInUserSurname() {
-        $(By.xpath("//input[@name='address[last_name]']")).sendKeys(userDetails.getUserSurname());
+        $(userSurnameField).sendKeys(userDetails.getUserSurname());
     }
 
     public void fillInUserPhone() {
-        $(By.xpath("//input[@name='address[phone_number]']")).sendKeys(userDetails.getUserPhoneNumber());
+        $(userPhoneField).sendKeys(userDetails.getUserPhoneNumber());
     }
 
     public void saveUserDetails() {
-        $(By.xpath("//button[@class='main-button upcase button-min-width']")).click();
+        $(saveUserDetailsbtn).click();
     }
 
     public void submitDeliveryAndUserDetails() {
-        $(By.xpath("//button[@class='main-button upcase fr small-radius button-min-width checkout-shipping-continue-button']")).click();
+        $(subminDetailsbtn).click();
     }
+
 
     public void selectPaymentType(String paymentType) {
         if (paymentType.contains("IBank")) {
-            $(By.xpath("//ul[@class='menu menu--checkout']/li[1]")).click();
+            $(selectIbank).click();
         } else if (paymentType.contains("cash")) {
-            $(By.xpath("//ul[@class='menu menu--checkout']/li[2]")).click();
+            $(selectCash).click();
         } else if (paymentType.contains("transfer")) {
-            $(By.xpath("//ul[@class='menu menu--checkout']/li[3]")).click();
+            $(selectTransfer).click();
         } else if (paymentType.contains("card")) {
-            $(By.xpath("//ul[@class='menu menu--checkout']/li[4]")).click();
+            $(selectCard).click();
         }
     }
 
+
     public void validateUserNameBeforePayment() {
-        String actualBuyer = $(By.xpath("//div[@class='chosen-address']/div[1]")).getText();
+        String actualBuyer = $(buyerName).getText();
         assertThat(actualBuyer).isEqualTo(userDetails.getUserName() + " " + userDetails.getUserSurname());
     }
 
     public void validateUserPhoneNbrBeforePayment() {
-        String actualPhoneNbr = $(By.xpath("//div[@class='chosen-address']/div[2]")).getText();
+        String actualPhoneNbr = $(buyerPhone).getText();
         assertThat(actualPhoneNbr).contains(userDetails.getUserPhoneNumber());
     }
 
     public void validateProductPriceBeforePayment() {
-        String actualPrice = $(By.xpath("//div[@class='price fr']")).getText();
+        String actualPrice = $(price).getText();
         assertThat(actualPrice).isEqualTo(product.getProductPrice());
     }
 }

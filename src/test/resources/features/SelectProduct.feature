@@ -17,6 +17,7 @@ Feature: Test that user is able to select product by group, sub-group, brand, so
     And Add product to chart
     Then Product name in chart match with expected
     And Product price in chart match with expected
+    And Close Window
 
 
 
