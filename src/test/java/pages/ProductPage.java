@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -18,13 +17,8 @@ public class ProductPage {
     private final By moveToChartbtn = By.xpath("//div[@class='controls clearfix tac']/a[2]");
 
     public void setProductDetails() {
-
-        WebElement n = $(productName);
-        product.setProductName(n.getText());
-
-        WebElement p = $(productPrice);
-        WebElement p2 = $(productPriceCurrency);
-        product.setProductPrice(p.getText() + " " + p2.getText());
+        product.setProductName($(productName).getText());
+        product.setProductPrice($(productPrice).getText() + " " + $(productPriceCurrency).getText());
     }
 
     public void addToChart() {

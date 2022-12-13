@@ -7,10 +7,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BeautyPage {
 
-    private final By subGroup1 = By.xpath("//li[@class='new-cat-item'][1]");
-    private final By subGroup2 = By.xpath("//li[@class='new-cat-item'][2]");
-    private final By subGroup3 = By.xpath("//li[@class='new-cat-item'][3]");
-    private final By subGroup4 = By.xpath("//li[@class='new-cat-item'][4]");
+    private final By productSubGroupMen = By.xpath("//li[@class='new-cat-item'][1]");
+    private final By productSubGroupWomen = By.xpath("//li[@class='new-cat-item'][2]");
+    private final By productSubGroupBeauty = By.xpath("//li[@class='new-cat-item'][3]");
+    private final By productSubGroupWatch = By.xpath("//li[@class='new-cat-item'][4]");
     private final By productTypeElement = By.xpath("//a[@class='list-filterable__label']");
     private final By brandInput = By.xpath("//input[@class='catalog-taxons-filter-multiselect__search-input list-filterable__input'][@data-attr-id='2']");
     private final By brandList = By.xpath("//span[@class='catalog-taxons-filter-multiselect__link-label list-filterable__label']");
@@ -21,13 +21,13 @@ public class BeautyPage {
     public void selectBeautySubGroup(String subGroupName) {
 
         if (subGroupName.contains("Vīrieša skaistumam")) {
-            $(subGroup1).click();
+            $(productSubGroupMen).click();
         } else if (subGroupName.contains("Sievietes skaistumam")) {
-            $(subGroup2).click();
+            $(productSubGroupWomen).click();
         } else if (subGroupName.contains("Skaistumam un veselībai")) {
-            $(subGroup3).click();
+            $(productSubGroupBeauty).click();
         } else if (subGroupName.contains("Rokas pulksteņi un rotas")) {
-            $(subGroup4).click();
+            $(productSubGroupWatch).click();
         }
     }
 
@@ -53,12 +53,10 @@ public class BeautyPage {
 
         $(brandInput).sendKeys(productBrand);
         $$(brandList).findBy(text(productBrand)).click();
-        sleep(1000);
     }
 
 
     public void selectFirstItem() {
-        sleep(1000);
         $(firstProduct).hover();
         $$(firstProductName).first().click();
     }

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class HomePage {
     Product product = new Product();
-    private final By cookies = By.xpath("//div[@id='cookie-checks']");
+
     private final By closeCookies = By.xpath("//a[@class='c-button-inverse'][@onclick='Cookiebot.dialog.submitConsent()']");
     private final By productGroupBeauty = By.xpath("//li[@class='submenu-lvl1__list-item color-theme-16 submenu-lvl1__list-item--has-child']");
     private final By productGroupPC = By.xpath("//li[@class='submenu-lvl1__list-item color-theme-17 submenu-lvl1__list-item--has-child']");
@@ -25,9 +25,8 @@ public class HomePage {
     }
 
     public void closeCookies() {
-        if ($(cookies).isDisplayed()) {
-            $(closeCookies).click();
-        }
+        $(closeCookies).click();
+
     }
 
     public void selectGroup(String productGroup) {
