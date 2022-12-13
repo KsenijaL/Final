@@ -2,9 +2,7 @@ package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pages.ProductPage.product;

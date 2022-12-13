@@ -1,6 +1,7 @@
 package models;
 
 import lombok.Data;
+
 @Data
 public class UserDetails {
     String email = "ksenija.lohina@inbox.lv";
